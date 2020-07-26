@@ -22,8 +22,6 @@ import java.io.Serializable;
 import java.util.List;
 
 @Path("/v1/unidadesfederativas")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 @SuppressWarnings("serial")
 public class UnidadeFederativaResource implements Serializable {
 
@@ -35,14 +33,16 @@ public class UnidadeFederativaResource implements Serializable {
     }
 
     @GET
-    @Produces
+    @Produces(MediaType.APPLICATION_JSON)
     public List<UnidadeFederativa> getUnidadesFederativas(){
-        return this.repository.findAll();
+        List<UnidadeFederativa> resultado = this.repository.findAll();
+        //System.out.println("Unidades Federativas size: " + resultado.size() );
+        return resultado;
     }
     
     @GET
     @Path("{id}")
-    @Produces
+    @Produces(MediaType.APPLICATION_JSON)
     public UnidadeFederativa getUnidadeFederativaById( @PathParam("id") Integer id ) {
     	return this.repository.findById(id).orElseThrow( () -> new UnidadeFederativaNotFoundException(id));
     }
@@ -54,16 +54,16 @@ public class UnidadeFederativaResource implements Serializable {
     }
 
     @POST
-    @Produces
-    @Consumes
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public UnidadeFederativa newUnidadeFederativa( UnidadeFederativa uf ) {
     	return this.repository.save( uf );
     }
 
     @PUT
     @Path("{id}")
-    @Produces
-    @Consumes
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public UnidadeFederativa replaceUnidadeFederativa( 
     		@PathParam("id") Integer id , 
     		UnidadeFederativa newUnidadeFederativa ) {
@@ -82,8 +82,8 @@ public class UnidadeFederativaResource implements Serializable {
     
     @PATCH
     @Path("{id}")
-    @Produces
-    @Consumes
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public UnidadeFederativa updateUnidadeFederativa( 
     		@PathParam("id") Integer id , 
     		UnidadeFederativa newUnidadeFederativa ) {

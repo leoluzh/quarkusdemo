@@ -1,26 +1,30 @@
 package com.lambdasys.quarkusdemo.graphql;
 
-import com.lambdasys.quarkusdemo.domains.Municipio;
-import com.lambdasys.quarkusdemo.domains.UnidadeFederativa;
-import com.lambdasys.quarkusdemo.exceptions.MunicipioNotFoundException;
-import com.lambdasys.quarkusdemo.exceptions.UnidadeFederativaNotFoundException;
-import com.lambdasys.quarkusdemo.repositories.UnidadeFederativaRepository;
+import java.io.Serializable;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.Query;
 
-import javax.inject.Inject;
-import java.io.Serializable;
-import java.util.List;
+import com.lambdasys.quarkusdemo.domains.UnidadeFederativa;
+import com.lambdasys.quarkusdemo.exceptions.UnidadeFederativaNotFoundException;
+import com.lambdasys.quarkusdemo.repositories.UnidadeFederativaRepository;
 
 @GraphQLApi
 @SuppressWarnings("serial")
 public class UnidadeFederativaResource implements Serializable {
 
     // ATENCAO: Quarkus nao aceita injecao de dependencia sobre propriedades privadas/protegidas.
+    private UnidadeFederativaRepository repository;
+    
     @Inject
-    UnidadeFederativaRepository repository;
+    public UnidadeFederativaResource( UnidadeFederativaRepository repository ) {
+    	this.repository = repository;
+	}
 
     @Query("unidadesfederativas")
     @Description("Buscar todos os unidades federativas disponíveis.")

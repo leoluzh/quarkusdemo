@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Path("/v1/municipios")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 @SuppressWarnings("serial")
 public class MunicipioResource implements Serializable {
 
@@ -36,14 +34,16 @@ public class MunicipioResource implements Serializable {
     }
     
     @GET
-    @Produces
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Municipio> getMunicipios(){
-    	return this.repository.findAll();
+    	List<Municipio> resultado = this.repository.findAll();
+    	//System.out.println("Municipios size: " + resultado.size() );
+    	return resultado;
     }
 
     @GET
     @Path("{id}")
-    @Produces
+    @Produces(MediaType.APPLICATION_JSON)
     public Municipio getMunicipioById( @PathParam("id") Integer id ) {
     	return this.repository.findById( id ).orElseThrow( () -> new MunicipioNotFoundException( id ) );
     }
@@ -55,16 +55,16 @@ public class MunicipioResource implements Serializable {
     }
     
     @POST
-    @Produces
-    @Consumes
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Municipio newMunicipio( Municipio municipio ) {
     	return this.repository.save( municipio );
     }
     
     @PUT
     @Path("{id}")
-    @Produces
-    @Consumes
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Municipio replaceMunicipio( @PathParam("id") Integer id , Municipio newMunicipio ) {
     	
         final Municipio resultado = repository.findById( id ).map( municipio -> {
@@ -81,8 +81,8 @@ public class MunicipioResource implements Serializable {
     
     @PATCH
     @Path("{id}")
-    @Produces
-    @Consumes
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Municipio patchMunicipio( @PathParam("id") Integer id , Municipio newMunicipio ) {
     	
         final Municipio resultado = repository.findById( id ).map( municipio -> {
@@ -105,12 +105,5 @@ public class MunicipioResource implements Serializable {
         return resultado;
     	
     }
-    
-    @GET
-    @Produces
-    public List<Municipio> municipiosByUfId( @PathParam("id") Integer id ){
-        List<Municipio> resultado = this.repository.findByUnidadeFederativaId( id );
-        return resultado;
-    }
-    
+        
 }
