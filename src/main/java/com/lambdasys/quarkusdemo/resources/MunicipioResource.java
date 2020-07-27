@@ -1,8 +1,8 @@
 package com.lambdasys.quarkusdemo.resources;
 
-import com.lambdasys.quarkusdemo.domains.Municipio;
-import com.lambdasys.quarkusdemo.exceptions.MunicipioNotFoundException;
-import com.lambdasys.quarkusdemo.repositories.MunicipioRepository;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -18,17 +18,16 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.enums.ParameterIn;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
-import org.eclipse.microprofile.openapi.annotations.media.Schema; 
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
+import com.lambdasys.quarkusdemo.domains.Municipio;
+import com.lambdasys.quarkusdemo.exceptions.MunicipioNotFoundException;
+import com.lambdasys.quarkusdemo.repositories.MunicipioRepository;
 
 @Path("/v1/municipios")
 @SuppressWarnings("serial")
@@ -80,8 +79,7 @@ public class MunicipioResource implements Serializable {
         				content = { @Content( mediaType = MediaType.APPLICATION_JSON )})
         })
     public Municipio getMunicipioById( 
-    		@Parameter(
-    				
+    		@Parameter(    				
     	            description = "Identificador do municipio.",
     	            required = true,
     	            example = "1",
