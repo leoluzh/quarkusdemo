@@ -18,7 +18,7 @@
     <quarkus.platform.version>1.6.1.Final</quarkus.platform.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <lombok.version>1.18.12</lombok.version>
-    <commons-lang3.version>3.11</commons-lang3.version>
+    <commons-lang3.version>3.18.0</commons-lang3.version>
   </properties>
   <dependencyManagement>
     <dependencies>
